@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
-#include <math.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -17,7 +16,7 @@
 typedef struct {
   GLuint shader_program;
   //View *view;
-  Object *object;   
+  //Object *object;   
 } Scene;
 
 Scene* init_scene();

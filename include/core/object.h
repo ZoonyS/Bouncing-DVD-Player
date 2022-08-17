@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
+#include <math.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -34,6 +35,8 @@ typedef struct {
   float r;
   float g;
   float b;
+  float velocityx;
+  float velocityy;
   float *texture_coords;
   float vertices[32];
   unsigned int *indices;
@@ -43,13 +46,13 @@ typedef struct {
   GLuint TEX;
 } Object;
 
-Object* init_object(float position_x, float position_y, float position_z, float scale);
+Object* init_object(float position_x, float position_y, float position_z, float scale, float velocity_x, float velocity_y);
+
+void object_bounce(Object *object, float time);
 
 void object_update_state(Object *object);
 
 void object_push_state(Object *object);
-
-// void object_move(Object *object, float posx, float posy);
 
 void link_vertex_attributes();
 
