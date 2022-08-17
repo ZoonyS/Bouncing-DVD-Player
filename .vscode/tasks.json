@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "-std=c++17",
+    		    "-I${workspaceFolder}/include",
+                "-L${workspaceFolder}/lib",				
+                "${workspaceFolder}/src/\\*.c",				
+                "-lglfw3dll",
+                "-o",
+                "${workspaceFolder}/build/Minecraft.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
