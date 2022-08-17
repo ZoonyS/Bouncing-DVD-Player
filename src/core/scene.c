@@ -18,16 +18,7 @@ Scene *init_scene()
     return NULL;
   }
 
-  // Object *object;
-  // if (!(object = init_object(0.70, 0.1, 0, 0.25)))
-  // {
-  //   scene_free(scene);
-  //   printf("Error: Could not load object\n");
-  //   return NULL;
-  // }
-
   scene->shader_program = shader_program;
-  // scene->object = object;
 
   return scene;
 }
@@ -38,18 +29,32 @@ void scene_render(GLFWwindow *window, Scene *scene)
   glUniform1i(glGetUniformLocation(scene->shader_program, "ourTexture"), 0);
 
   Object *object;
-  if (!(object = init_object(0.7, 0.2, 0, 0.25, -0.01, -0.01)))
+  if (!(object = init_object(0.7, 0.2, 0, 0.25, 0.01, 0.01)))
   {
     scene_free(scene);
     printf("Error: Could not load object\n");
   }
   
-  // Object *object2;
-  // if (!(object2 = init_object(0.5, 0.5, 0, 0.25)))
-  // {
-  //   scene_free(scene);
-  //   printf("Error: Could not load object\n");
-  // }
+  Object *object2;
+  if (!(object2 = init_object(0.5, 0.5, 0, 0.25, -0.01, -0.01)))
+  {
+    scene_free(scene);
+    printf("Error: Could not load object\n");
+  }
+
+  Object *object3;
+  if (!(object3 = init_object(0.2, 0.2, 0, 0.25, 0.01, -0.01)))
+  {
+    scene_free(scene);
+    printf("Error: Could not load object\n");
+  }
+
+  Object *object4;
+  if (!(object4 = init_object(0.3, 0.7, 0, 0.25, -0.01, 0.01)))
+  {
+    scene_free(scene);
+    printf("Error: Could not load object\n");
+  }
 
   while (!glfwWindowShouldClose(window))
   {
@@ -67,22 +72,38 @@ void scene_render(GLFWwindow *window, Scene *scene)
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, object->TEX);
-    // glActiveTexture(GL_TEXTURE0);
-    // glBindTexture(GL_TEXTURE_2D, object2->TEX);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, object2->TEX);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, object3->TEX);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, object4->TEX);
 
     glUseProgram(scene->shader_program);
     glBindVertexArray(object->VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // glBindVertexArray(object2->VAO);
-    // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(object2->VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glUseProgram(scene->shader_program);
+    glBindVertexArray(object3->VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(object4->VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     object_bounce(object, time);
+    object_bounce(object2, time);
+    object_bounce(object3, time);
+    object_bounce(object4, time);
 
     object_update_state(object);
-    // object_update_state(object2);
+    object_update_state(object2);
+    object_update_state(object3);
+    object_update_state(object4);
 
     object_push_state(object);
-    // object_push_state(object2);
+    object_push_state(object2);
+    object_push_state(object3);
+    object_push_state(object4);
     
     // swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     glfwSwapBuffers(window);
@@ -118,10 +139,3 @@ void scene_free(Scene *scene)
 
    free(scene);
 }
-
-// void getRgbRainbow(float *r, float *g, float *b, float time)
-// {
-//   *r = sin(time) * 0.5 + 0.5;
-//   *g = sin(time * 0.5) * 0.5 + 0.5;
-//   *b = sin(time * 0.25) * 0.5 + 0.5;
-// }
