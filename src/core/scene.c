@@ -95,7 +95,6 @@ void scene_render(GLFWwindow *window, Scene *scene)
     object_bounce(object3, time);
     object_bounce(object4, time);
 
-    object_update_state(object);
     object_update_state(object2);
     object_update_state(object3);
     object_update_state(object4);

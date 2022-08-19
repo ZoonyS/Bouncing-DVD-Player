@@ -28,6 +28,7 @@
 #define OBJECT_TOP_LEFT_VERTEX 24
 
 typedef struct {
+  int id;
   float posx;
   float posy;
   float posz;

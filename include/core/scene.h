@@ -13,15 +13,19 @@
 #include "core/object.h"
 #include "core/input.h"
 
+#define MAX_OBJECTS 10
+
 typedef struct {
   GLuint shader_program;
   //View *view;
-  //Object *object;   
+  Object object[MAX_OBJECTS];   
 } Scene;
 
 Scene* init_scene();
 void scene_render(GLFWwindow *window, Scene *scene);
+
+void scene_add_object(Scene *scene);
+
 void scene_free();
-void getRgbRainbow(float *r, float *g, float *b, float time);
 
 #endif // !SCENE_H
